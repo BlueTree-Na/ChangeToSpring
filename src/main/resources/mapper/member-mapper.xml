@@ -31,10 +31,10 @@
 		 	   STATUS = 'Y'
 		   AND
 		   	   USER_ID = #{userId}
-		<!-- 2절 -->
+		<!-- 2절 
 		   AND
 		   	   USER_PWD = #{userPwd}	   
-		
+		-->
 	</select>
 	
 	<!-- 기본생성자를 호출 => 빈 객체 만들었음 => property 값으로 setter 찾음 -->

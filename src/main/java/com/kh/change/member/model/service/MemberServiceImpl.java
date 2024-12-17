@@ -16,27 +16,27 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member login(Member member) {
-		return null;
+		return mapper.login(member);
 	}
 	
 	@Override
 	public int insertMember(Member member) {
-		return 0;
+		return mapper.insertMember(member);
 	}
 	
 	@Override
 	public int updateMember(Member member) {
-		return 0;
+		return mapper.updateMember(member);
 	}
 
 	@Override
 	public int updatePwd(MemberDto memberDto) {
-		return 0;
+		return mapper.updatePwd(memberDto);
 	}
 
 	@Override
 	public int delete(MemberDto memberDto) {
-		return 0;
+		return mapper.delete(memberDto);
 	}
 	
 	

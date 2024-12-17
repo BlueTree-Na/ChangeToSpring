@@ -7,12 +7,15 @@ import lombok.Data;
 @Data
 public class Member {
 	
-	private int userNo;
-	private String userId;
+	private String userId;   
 	private String userPwd;
 	private String userName;
 	private String email;
-	private String interest;
+	private String gender;
+//	private int age; 
+	private String age;
+	private String phone;
+	private String address;
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
