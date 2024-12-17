@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1절
+<mapper namespace="memberMapper"> 
+-->
+
+<!-- MyBatis ver3 이후 사용 가능한 2절 -->
+<mapper namespace="com.kh.change.member.model.dao.MemberMapper">
+
+	<!-- 로그인용 쿼리문 1절 -->
+	<!-- 조회하는 sql문 작성 => 식별할 수 있는 id속성 작성, 인자로 전달받은 값의 자료형 작성, 반환 자료형 오토매핑 -->
+	<select id="login" parameterType="member" resultType="member">
+		SELECT
+			   USER_ID userId,
+			   USER_PWD userPwd,
+			   USER_NAME userName,
+			   EMAIL,
+			   GENDER,
+			   AGE,
+			   PHONE,
+			   ADDRESS,
+			   ENROLL_DATE enrollDate,
+			   MODIFY_DATE modifyDate,
+			   STATUS
+		  FROM
+		  	   MEMBER
+		 WHERE
+		 	   STATUS = 'Y'
+		   AND
+		   	   USER_ID = #{userId}
+		<!-- 2절 -->
+		   AND
+		   	   USER_PWD = #{userPwd}	   
+		
+	</select>
+	
+	<!-- 기본생성자를 호출 => 빈 객체 만들었음 => property 값으로 setter 찾음 -->
+	<!-- 
+	<resultMap id="memberResultSet" type="member">
+		<id column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_PWD" property="userPwd"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="EMAIL" property="email"/>
+		<result column="INTEREST" property="interest"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	-->
+	
+	<!-- <select id="login" parameterType="member" resultMap="memberResultSet"> -->
+	<!-- <select id="login" parameterType="member" resultType="member" >
+		SELECT
+			   USER_NO as userNo,
+			   USER_ID as userId,
+			   USER_PWD as userPwd,
+			   USER_NAME as userName,
+			   EMAIL,
+			   INTEREST,
+			   ENROLL_DATE as enrollDate,
+			   MODIFY_DATE as modifyDate,
+			   STATUS
+		  FROM
+		  	   MEMBER
+		 WHERE
+		 	   STATUS = 'Y'
+		   AND
+		   	   USER_ID = #{userId}
+		   AND
+		   	   USER_PWD = #{userPwd}
+	</select> -->
+	
+	<insert id="insertMember" parameterType="member">
+		INSERT 
+		  INTO 
+		       MEMBER 
+		       (
+		       USER_NO,
+		       USER_ID,
+		       USER_PWD,
+		       USER_NAME,
+		       EMAIL,
+		       INTEREST
+		       )
+		VALUES
+			   (
+			   SEQ_UNO.NEXTVAL,
+			   #{userId},
+			   #{userPwd},
+			   #{userName},
+			   #{email},
+			   #{interest}
+			   )
+	</insert>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE
+			   MEMBER
+		   SET
+		   	   USER_NAME = #{userName},
+		   	   EMAIL = #{email},
+		   	   INTEREST = #{interest}
+		 WHERE
+		 	   USER_ID = #{userId}
+		   AND
+		   	   STATUS = 'Y'
+	</update>
+	
+	<update id="updatePwd" parameterType="com.kh.change.member.model.vo.MemberDto">
+		UPDATE
+			   MEMBER
+		   SET
+		   	   USER_PWD = #{changePwd}
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND
+		   	   USER_PWD = #{userPwd}
+		   AND
+		   	   STATUS = 'Y'
+	</update>
+	
+	<update id="delete" parameterType="com.kh.change.member.model.vo.MemberDto">
+		UPDATE
+			   MEMBER
+		   SET
+		   	   STATUS = 'N'
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND
+		   	   USER_PWD = #{userPwd}
+		   AND
+		   	   STATUS = 'Y'
+	</update>
+
+</mapper>
